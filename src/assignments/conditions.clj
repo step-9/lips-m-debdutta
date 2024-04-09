@@ -67,7 +67,13 @@
   {:level      :medium
    :use        '[condp filter]
    :alternates '[if cond]}
-  [coll])
+  [coll]
+  (condp = (filter #(contains? #{1 3 :a :b :c [2 3] [4 5]} %) coll)
+    [1 3] :wonder-woman
+    [:a :b :c] :durga
+    [[2 3] [4 5]] :cleopatra
+    :tuntun
+   ))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
