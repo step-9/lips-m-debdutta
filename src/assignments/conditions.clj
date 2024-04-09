@@ -37,9 +37,12 @@
    :use        '[when-first concat]
    :alternates '[empty? seq? conj into]}
   [coll]
-  (if (empty? coll)
-    nil
-    (into coll [(nth coll 0)])))
+  (comment (if (empty? coll)
+             nil
+             (into coll [(nth coll 0)]))
+           )
+  (when-first [first-element coll]
+    (concat coll [first-element])))
 
 (defn five-point-someone
   "Returns :chetan-bhagat if y is 5.
