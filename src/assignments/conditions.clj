@@ -58,6 +58,9 @@
     (> x y) :greece
     :else :universe))
 
+(defn present? [seq coll]
+  (= seq (filter #(contains? (set seq) %) coll)))
+
 (defn conditions-apply
   "Given a collection of any length, returns:
   :wonder-woman if collection has a single occurrence of 1 and 3 in that order
@@ -68,7 +71,7 @@
    :use        '[condp filter]
    :alternates '[if cond]}
   [coll]
-  (condp = (filter #(contains? #{1 3 :a :b :c [2 3] [4 5]} %) coll)
+  (condp present? coll
     [1 3] :wonder-woman
     [:a :b :c] :durga
     [[2 3] [4 5]] :cleopatra
