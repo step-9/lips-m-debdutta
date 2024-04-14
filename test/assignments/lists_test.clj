@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [assignments.lists :refer :all :as l]))
 
-(deftest ^:kaocha/pending map-test
+(deftest ^:implemented map-test
   (testing "identity with single coll"
     (is (= [1 2 3] (map' identity [1 2 3])))))
 

@@ -7,7 +7,27 @@
   {:level        :medium
    :use          '[loop recur]
    :dont-use     '[map]}
-  [f & colls])
+  [f & colls]
+  (let [terms (loop [index 1
+                     result (count (first colls))]
+                (if-not (< index (count colls))
+                  result
+                  (recur (inc index)
+                         (if (< (count (nth colls index)) result)
+                           (count (nth colls index))
+                           result))))]
+    (loop [index 0
+           result []]
+      (if-not (< index terms)
+        result
+        (recur (inc index)
+               (conj result
+                     (eval (conj (loop [index2 0
+                                        result []]
+                                   (if-not (< index2 (count colls))
+                                     (reverse (into () result))
+                                     (recur (inc index2)
+                                            (conj result (nth (nth colls index2) index))))) f))))))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
