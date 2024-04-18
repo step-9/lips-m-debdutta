@@ -62,7 +62,12 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[count]}
-  [coll])
+  [coll]
+  (loop [coll coll
+         size 0]
+    (if (nil? (first coll))
+      size
+      (recur (rest coll) (inc size)))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
