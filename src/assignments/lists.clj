@@ -87,7 +87,13 @@
   {:level        :easy
    :use          '[loop recur and]
    :dont-use     '[every?]}
-  [pred coll])
+  [pred coll]
+  (loop [coll coll
+         result true]
+    (if (zero? (count coll))
+      result
+      (recur (rest coll)
+             (and result (pred (first coll)))))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
