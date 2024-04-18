@@ -90,7 +90,7 @@
   [pred coll]
   (loop [coll coll
          result true]
-    (if (zero? (count coll))
+    (if (or (not result) (zero? (count coll)))
       result
       (recur (rest coll)
              (and result (pred (first coll)))))))
@@ -103,7 +103,13 @@
   {:level        :easy
    :use          '[loop recur or]
    :dont-use     '[some]}
-  [pred coll])
+  [pred coll]
+  (loop [coll coll
+         result false]
+    (if (or result (zero? (count coll)))
+      result
+      (recur (rest coll)
+             (or result (pred (first coll)))))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
